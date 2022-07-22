@@ -130,26 +130,6 @@ TBL buyer_bid_t {
     > idx_t;
 };
 
-/**
-//Scope: owner
-//if not set, a default rate of 1% will be charged to sellers
-//dev fee rate is determined by contract dev only
-// TBL fee_rate_t {
-//     nsymbol     symbol;
-//     float       creator_fee_rate;
-//     float       ipowner_fee_rate;
-//     float       notary_fee_rate;
-
-//     fee_rate_t() {}
-//     fee_rate_t(const nsymbol& symb): symbol(symb) {}
-//     fee_rate_t(const nsymbol& symb, const float& cfr, const float& ifr, const float& nfr): symbol(symb),
-//             creator_fee_rate(cfr), ipowner_fee_rate(ifr), notary_fee_rate(nfr) {}
-
-//     uint64_t primary_key()const { return symbol.id; }
-
-//     EOSLIB_SERIALIZE( fee_rate_t, (symbol)(creator_fee_rate)(ipowner_fee_rate)(notary_fee_rate) )
-// };
-*/
 
 typedef eosio::multi_index
 < "sellorders"_n,  order_t,
@@ -158,11 +138,5 @@ typedef eosio::multi_index
     indexed_by<"priceidx"_n,        const_mem_fun<order_t, uint64_t,  &order_t::by_small_price_first> >
 > sellorder_idx;
 
-// //buyer to bid for the token ID
-// typedef eosio::multi_index
-// < "buyorders"_n,  order_t,
-//     indexed_by<"makerordidx"_n,  const_mem_fun<order_t, uint128_t, &order_t::by_maker_large_price_first> >,
-//     indexed_by<"priceidx"_n,  const_mem_fun<order_t, uint64_t, &order_t::by_large_price_first> >
-// > buyorder_idx;
 
 } //namespace amax

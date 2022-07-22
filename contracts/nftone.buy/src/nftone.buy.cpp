@@ -78,17 +78,17 @@ using namespace std;
 
       auto orders       = sellorder_idx( _self, token_id );
       auto itr          = orders.find( order_id );
-      CHECKC( itr != orders.end(), err::RECORD_NOT_FOUND, "order not found: " + to_string(orderid) + "@" + to_string(token_id) )
+      CHECKC( itr != orders.end(), err::RECORD_NOT_FOUND, "order not found: " + to_string(order_id) + "@" + to_string(token_id) )
 
       orders.modify(itr, same_payer, [&]( auto& row ) {
-         order.begin_at    = begin_at;
-         order.end_at      = end_at;
-         order.fee         = fee;
+         row.begin_at    = begin_at;
+         row.end_at      = end_at;
+         row.fee         = fee;
       });
 
    }
 
-   void nfztone_mart::onbuytransfercnyd(const name& from, const name& to, const asset& quant, const string& memo) {
+   void nftone_mart::onbuytransfercnyd(const name& from, const name& to, const asset& quant, const string& memo) {
       on_buy_transfer(from, to, quant, memo);
    }
 
@@ -138,8 +138,8 @@ using namespace std;
       CHECKC( itr != orders.end(), err::RECORD_NOT_FOUND, "order not found: " + to_string(order_id) + "@" + to_string(token_id) )
 
       auto order = *itr;
-      CHECKC( current_time_point() > order.begin_at, err::TIME_EXPIRED, "There is no buying at this time" )
-      CHECKC( current_time_point() < order.end_at, err::TIME_EXPIRED, "There is no buying at this time" )
+      CHECKC( time_point_sec( current_time_point() ) > order.begin_at, err::TIME_EXPIRED, "There is no buying at this time" )
+      CHECKC( time_point_sec( current_time_point() )< order.end_at, err::TIME_EXPIRED, "There is no buying at this time" )
       CHECKC( count <= order.frozen, err::PARAM_ERROR, "count cannot exceed the remaining quantity" )
       CHECKC( quant.amount >= (uint64_t)(order.price.value.amount),
                err::PARAM_ERROR, "quantity < price , "  + to_string(order.price.value.amount) )
@@ -148,16 +148,18 @@ using namespace std;
       CHECKC( need_amount > 0, err::PARAM_ERROR, "non-positive count not allowed" )
       CHECKC( quant.amount == need_amount, err::INCORRECT_AMOUNT, "incorrect amount" )
 
-      process_single_buy_order( order, bought, count );
+      auto earned    = asset(0, _gstate.pay_symbol); //to seller
+      earned.amount  = count * order.price.value.amount;
+      order.frozen  -= count;
+      //send to seller for quote tokens
+      TRANSFER_X( _gstate.bank_contract, order.maker, earned, "sell nft:" + to_string(bought.symbol.id) )
 
       if ( order.frozen == 0 ) {
          orders.erase( itr );
-
       } else {
          orders.modify(itr, same_payer, [&]( auto& row ) {
             row.frozen = order.frozen;
             row.updated_at = current_time_point();
-
          });
       }
 
@@ -170,15 +172,6 @@ using namespace std;
       //send to fee_collector for fee
       uint64_t need_fee = order.fee.amount * count;
       TRANSFER_X( _gstate.bank_contract, _gstate.fee_collector, need_fee, "NFT " + to_string(bought.symbol.id) + " handling fee, count:"+ to_string(count))
-
-   }
-
-   void nftone_mart::process_single_buy_order(order_t& order, nasset& bought, uint64_t& count) {
-      auto earned    = asset(0, _gstate.pay_symbol); //to seller
-      earned.amount  = count * order.price.value.amount;
-      order.frozen  -= count;
-      //send to seller for quote tokens
-      TRANSFER_X( _gstate.bank_contract, order.maker, earned, "sell nft:" + to_string(bought.symbol.id) )
 
    }
 

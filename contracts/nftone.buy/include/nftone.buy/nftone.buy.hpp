@@ -98,7 +98,6 @@ class [[eosio::contract("nftone.buy")]] nftone_mart : public contract {
       global_t            _gstate;
 
    private:
-      void process_single_buy_order(order_t& order, asset& quantity, nasset& bought, uint64_t& deal_count );
 
       void compute_memo_price( const string& memo, asset& price );
 

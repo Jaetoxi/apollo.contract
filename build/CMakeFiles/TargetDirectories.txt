@@ -1,0 +1,3 @@
+/Users/joslin/code/workspace/opensource/apollo.contract/build/CMakeFiles/contracts_project.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/CMakeFiles/edit_cache.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/CMakeFiles/rebuild_cache.dir
