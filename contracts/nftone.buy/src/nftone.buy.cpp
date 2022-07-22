@@ -176,20 +176,6 @@ using namespace std;
 
    }
 
-   void nftone_mart::cancelbid( const name& buyer, const uint64_t& buyer_bid_id ){
-      require_auth( buyer );
-      auto bids                     = buyer_bid_t::idx_t(_self, _self.value);
-      auto bid_itr                  = bids.find( buyer_bid_id );
-      auto bid_frozen               = bid_itr->frozen;
-      auto bid_price                = bid_itr->price;
-      CHECKC( bid_itr != bids.end(), err::RECORD_NOT_FOUND, "buyer bid not found: " + to_string( buyer_bid_id ))
-      CHECKC( buyer == bid_itr->buyer, err::NO_AUTH, "NO_AUTH")
-
-      auto left = asset( 0, _gstate.pay_symbol );
-      TRANSFER_X( _gstate.bank_contract, bid_itr->buyer, bid_frozen, "cancel" )
-      bids.erase( bid_itr );
-   }
-
    void nftone_mart::cancelorder(const name& maker, const uint32_t& token_id, const uint64_t& order_id) {
       require_auth( maker );
 
@@ -213,7 +199,6 @@ using namespace std;
          }
       }
    }
-
 
    void nftone_mart::compute_memo_price(const string& memo, asset& price) {
       price.amount =  to_int64( memo, "price");
@@ -248,6 +233,5 @@ using namespace std;
 			act.send( seller_order_id, bid_id, maker, buyer, price, fee, count, created_at );
 
    }
-
 
 } //namespace amax

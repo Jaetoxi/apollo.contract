@@ -1,0 +1,1 @@
+/Users/joslin/opt/amax.cdt/amax.cdt/bin/amax-ld -L/usr/local/opt/openssl@1.1/lib CMakeFiles/nftone.buy.dir/src/nftone.buy.cpp.obj -o nftone.buy.wasm 

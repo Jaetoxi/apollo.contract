@@ -1,0 +1,8 @@
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/CMakeFiles/edit_cache.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/CMakeFiles/rebuild_cache.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/amax.ntoken/CMakeFiles/amax.ntoken.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/amax.ntoken/CMakeFiles/edit_cache.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/amax.ntoken/CMakeFiles/rebuild_cache.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/nftone.buy/CMakeFiles/nftone.buy.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/nftone.buy/CMakeFiles/edit_cache.dir
+/Users/joslin/code/workspace/opensource/apollo.contract/build/contracts/nftone.buy/CMakeFiles/rebuild_cache.dir
