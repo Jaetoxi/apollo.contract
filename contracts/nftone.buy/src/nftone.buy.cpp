@@ -27,7 +27,6 @@ using namespace std;
 
       _gstate.admin                 = "amax.daodev"_n;
       _gstate.fee_collector         = "amax.daodev"_n;
-      _gstate.fee_rate              = 0;
       _gstate.pay_symbol            = pay_symbol;
       _gstate.bank_contract         = bank_contract;
 
@@ -70,7 +69,7 @@ using namespace std;
       });
    }
 
-   void nftone_mart::setsnapupfee(const uint64_t& order_id, const uint64_t& token_id, const time_point_sec& begin_at, const time_point_sec& end_at, const asset& fee) {
+   void nftone_mart::setorderfee(const uint64_t& order_id, const uint64_t& token_id, const time_point_sec& begin_at, const time_point_sec& end_at, const asset& fee) {
       require_auth( _self );
       CHECKC( begin_at > current_time_point(), err::PARAM_ERROR, "current time is not greater than begin" );
       CHECKC( begin_at < end_at, err::PARAM_ERROR, "begin is not greater than end" );
@@ -139,11 +138,9 @@ using namespace std;
 
       auto order = *itr;
       CHECKC( time_point_sec( current_time_point() ) > order.begin_at, err::TIME_EXPIRED, "There is no buying at this time" )
-      CHECKC( time_point_sec( current_time_point() )< order.end_at, err::TIME_EXPIRED, "There is no buying at this time" )
+      CHECKC( time_point_sec( current_time_point() ) < order.end_at, err::TIME_EXPIRED, "There is no buying at this time" )
       CHECKC( count <= order.frozen, err::PARAM_ERROR, "count cannot exceed the remaining quantity" )
-      CHECKC( quant.amount >= (uint64_t)(order.price.value.amount),
-               err::PARAM_ERROR, "quantity < price , "  + to_string(order.price.value.amount) )
-
+   
       uint64_t need_amount = (order.price.value.amount + order.fee.amount) * count;
       CHECKC( need_amount > 0, err::PARAM_ERROR, "non-positive count not allowed" )
       CHECKC( quant.amount == need_amount, err::INCORRECT_AMOUNT, "incorrect amount" )
@@ -169,6 +166,7 @@ using namespace std;
       //send to buyer for nft tokens
       vector<nasset> quants = { bought };
       TRANSFER_N( NFT_BANK, from, quants, "buy nft: " + to_string(token_id) )
+
       //send to fee_collector for fee
       uint64_t need_fee = order.fee.amount * count;
       auto fee_asset = asset(need_fee, _gstate.pay_symbol); //to seller
