@@ -67,7 +67,7 @@ class [[eosio::contract("nftone.buy")]] nftone_mart : public contract {
    [[eosio::on_notify("amax.ntoken::transfer")]]
    void onselltransfer(const name& from, const name& to, const vector<nasset>& quants, const string& memo);
 
-   ACTION setsnapupfee(const uint64_t& orderid, const uint64_t& token_id, const time_point_sec& begin, const time_point_sec& end, const asset& fee);
+   ACTION setsnapupfee(const uint64_t& order_id, const uint64_t& token_id, const time_point_sec& begin_at, const time_point_sec& end_at, const asset& fee);
 
    [[eosio::on_notify("cnyd.token::transfer")]]
    void onbuytransfercnyd(const name& from, const name& to, const asset& quant, const string& memo);
@@ -90,7 +90,6 @@ class [[eosio::contract("nftone.buy")]] nftone_mart : public contract {
                      const int64_t& count,
                      const time_point_sec created_at
                    );
-
 
    using deal_trace_action = eosio::action_wrapper<"dealtrace"_n, &nftone_mart::dealtrace>;
 

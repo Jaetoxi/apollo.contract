@@ -70,14 +70,14 @@ using namespace std;
       });
    }
 
-   void nftone_mart::setsnapupfee(const uint64_t& orderid, const uint64_t& token_id, const time_point_sec& begin_at, const time_point_sec& end_at, const asset& fee) {
+   void nftone_mart::setsnapupfee(const uint64_t& order_id, const uint64_t& token_id, const time_point_sec& begin_at, const time_point_sec& end_at, const asset& fee) {
       require_auth( _self );
-      CHECKC( begin > current_time_point(), err::PARAM_ERROR, "current time is not greater than begin" );
-      CHECKC( begin < end, err::PARAM_ERROR, "begin is not greater than end" );
+      CHECKC( begin_at > current_time_point(), err::PARAM_ERROR, "current time is not greater than begin" );
+      CHECKC( begin_at < end_at, err::PARAM_ERROR, "begin is not greater than end" );
       CHECKC( fee.amount > 0, err::PARAM_ERROR, "non-positive quantity not allowed" );
 
       auto orders       = sellorder_idx( _self, token_id );
-      auto itr          = orders.find( orderid );
+      auto itr          = orders.find( order_id );
       CHECKC( itr != orders.end(), err::RECORD_NOT_FOUND, "order not found: " + to_string(orderid) + "@" + to_string(token_id) )
 
       orders.modify(itr, same_payer, [&]( auto& row ) {
