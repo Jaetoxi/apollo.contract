@@ -30,19 +30,18 @@ using namespace eosio;
 
 NTBL("global") global_t {
     name admin;
-    name dev_fee_collector;
-    float dev_fee_rate      = 0.0;
+    name fee_collector;
+    float fee_rate      = 0.0;
     float creator_fee_rate  = 0.0;
     float ipowner_fee_rate  = 0.0;
     float notary_fee_rate   = 0.0;
-    uint32_t order_expiry_hours = 72;
     eosio::symbol           pay_symbol;
     name                    bank_contract;
     uint64_t last_buy_order_idx = 0;
     uint64_t last_deal_idx      = 0;
 
     EOSLIB_SERIALIZE( global_t, (admin)(dev_fee_collector)(dev_fee_rate)(creator_fee_rate)(ipowner_fee_rate)
-                                (notary_fee_rate)(order_expiry_hours)(pay_symbol)(bank_contract)(last_buy_order_idx)(last_deal_idx) )
+                                (notary_fee_rate)(pay_symbol)(bank_contract)(last_buy_order_idx)(last_deal_idx) )
 
 };
 typedef eosio::singleton< "global"_n, global_t > global_singleton;

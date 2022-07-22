@@ -26,8 +26,8 @@ using namespace std;
       require_auth( _self );
 
       _gstate.admin                 = "amax.daodev"_n;
-      _gstate.dev_fee_collector     = "amax.daodev"_n;
-      _gstate.dev_fee_rate          = 0;
+      _gstate.fee_collector         = "amax.daodev"_n;
+      _gstate.fee_rate              = 0;
       _gstate.pay_symbol            = pay_symbol;
       _gstate.bank_contract         = bank_contract;
 
