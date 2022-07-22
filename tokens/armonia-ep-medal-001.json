@@ -1,0 +1,16 @@
+{
+    "name": "创世序章",
+    "token_type": "ERC1155", 
+    "description": "天地混乱无序时，神明自冰与火之间诞生，祂链接失落的大陆；祂带来了全新的秩序；祂要书写那创世的篇章；于是，海洋欢呼，天空歌唱，新的天地自此拉开了序幕……",
+    "token_id": "1", 
+    "parent_id": "0",  
+    "file_type": ".jpg",
+    "file_url": "https://bafybeia5vbjilvtognb7ffab7256udrr5zxx4dup6aty2nkc4yfdht5sla.ipfs.nftstorage.link", 
+    "cover_url": "https://bafybeia5vbjilvtognb7ffab7256udrr5zxx4dup6aty2nkc4yfdht5sla.ipfs.nftstorage.link",
+    "contract_address": "amax.ntoken",   
+    "maximum_supply": 300, 
+    "quantity": 150,
+    "issuer": "armoniaadmin", 
+    "ipowner": "armoniaadmin",
+    "created_at": "2022-06-30T11:22:55+00:00"
+}
