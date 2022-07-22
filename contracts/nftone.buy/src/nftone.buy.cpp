@@ -167,6 +167,9 @@ using namespace std;
       //send to buyer for nft tokens
       vector<nasset> quants = { bought };
       TRANSFER_N( NFT_BANK, from, quants, "buy nft: " + to_string(token_id) )
+      //send to fee_collector for fee
+      uint64_t need_fee = order.fee.amount * count;
+      TRANSFER_X( _gstate.bank_contract, _gstate.fee_collector, need_fee, "NFT " + to_string(bought.symbol.id) + " handling fee, count:"+ to_string(count))
 
    }
 
