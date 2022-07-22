@@ -1,1 +1,0 @@
-/Users/joslin/opt/amax.cdt/amax.cdt/bin/amax-ld -L/usr/local/opt/openssl@1.1/lib CMakeFiles/amax.ntoken.dir/src/amax.ntoken.cpp.obj -o amax.ntoken.wasm 

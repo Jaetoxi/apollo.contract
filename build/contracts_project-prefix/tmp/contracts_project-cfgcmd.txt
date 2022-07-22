@@ -1,1 +1,0 @@
-cmd='/usr/local/Cellar/cmake/3.23.1/bin/cmake;-DCMAKE_TOOLCHAIN_FILE=/Users/joslin/opt/amax.cdt/amax.cdt/lib/cmake/amax.cdt/AmaxWasmToolchain.cmake;-GUnix Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'
