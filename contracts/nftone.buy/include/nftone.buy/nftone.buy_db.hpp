@@ -40,7 +40,7 @@ NTBL("global") global_t {
     uint64_t last_buy_order_idx = 0;
     uint64_t last_deal_idx      = 0;
 
-    EOSLIB_SERIALIZE( global_t, (admin)(dev_fee_collector)(dev_fee_rate)(creator_fee_rate)(ipowner_fee_rate)
+    EOSLIB_SERIALIZE( global_t, (admin)(fee_collector)(fee_rate)(creator_fee_rate)(ipowner_fee_rate)
                                 (notary_fee_rate)(pay_symbol)(bank_contract)(last_buy_order_idx)(last_deal_idx) )
 
 };
