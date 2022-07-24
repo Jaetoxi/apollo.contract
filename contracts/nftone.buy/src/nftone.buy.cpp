@@ -69,7 +69,10 @@ using namespace std;
       });
    }
 
-   void nftone_mart::setorderfee(const uint64_t& order_id, const uint64_t& token_id, const time_point_sec& begin_at, const time_point_sec& end_at, const asset& fee) {
+   void nftone_mart::setorderfee(const uint64_t& order_id, const uint64_t& token_id,
+                           const time_point_sec& begin_at,
+                           const time_point_sec& end_at, 
+                           const asset& fee) {
       require_auth( _self );
       CHECKC( begin_at > current_time_point(), err::PARAM_ERROR, "current time is not greater than begin" );
       CHECKC( begin_at < end_at, err::PARAM_ERROR, "begin is not greater than end" );
